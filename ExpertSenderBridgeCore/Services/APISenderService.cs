@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpertSenderBridge.Services
+namespace ExpertSenderBridgeCore.Services
 {
     internal class APISenderService
     {
@@ -45,4 +45,6 @@ namespace ExpertSenderBridge.Services
             throw new Exception(_failedMsg);
         }
     }
+
+    
 }

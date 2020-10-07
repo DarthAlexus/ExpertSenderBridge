@@ -1,13 +1,11 @@
-﻿using ExpertSenderBridge.DataModel.Enums.DataTables;
-using ExpertSenderBridge.Models;
-using ExpertSenderBridge.Models.APIModels;
-using ExpertSenderBridge.Services;
+﻿using ExpertSenderBridgeCore.Models;
+using ExpertSenderBridgeCore.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ExpertSenderBridge
+namespace ExpertSenderBridgeCore
 {
     public class ExpertSender
     {
@@ -35,14 +33,14 @@ namespace ExpertSenderBridge
                 {
                     columns.Add(new Column { Name = columnsName[i], Value = value[i].ToString() });
                 }
-                rows.Add(new Row { Columns= columns.ToArray() });
+                rows.Add(new Row { Columns = columns.ToArray() });
             }
             var request = new ApiRequest { ApiKey = apiKey, TableName = table, Data = rows.ToArray() };
             var body = eSXmlSerializer.Serialize(request);
             await APISenderService.SendPostAPIAsync(serverAdress + "DataTablesAddMultipleRows/", body);
         }
 
-        public static List<IDictionary<string, object>> GetRows(string table, int? top, IEnumerable<string> columns, IEnumerable<Filter.Filter> filters)
+        public static List<IDictionary<string, object>> GetRows(string table, int? top, IEnumerable<string> columns, IEnumerable<Filter> filters)
         {
             var rows = new List<IDictionary<string, object>>();
 
@@ -51,7 +49,7 @@ namespace ExpertSenderBridge
 
         public static void DeleteRows(string table, Column[] PrimaryKeyColumns)
         {
-            new Filter.Filter("test", WhereOperator.EQ, 123);
+            new Filter("test", WhereOperator.EQ, 123);
         }
     }
 }

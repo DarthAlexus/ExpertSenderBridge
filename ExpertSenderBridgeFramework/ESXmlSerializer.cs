@@ -1,11 +1,12 @@
-﻿using ExpertSenderBridge.Models;
+﻿using ExpertSenderBridgeFramework.Models;
+using ExpertSenderBridgeFramework.Models.APIModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace ExpertSenderBridge
+namespace ExpertSenderBridgeFramework
 {
     class ESXmlSerializer
     {

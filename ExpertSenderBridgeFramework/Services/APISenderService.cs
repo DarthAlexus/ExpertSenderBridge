@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpertSenderBridge.Services
+namespace ExpertSenderBridgeFramework.Services
 {
     internal class APISenderService
     {
@@ -29,22 +29,20 @@ namespace ExpertSenderBridge.Services
                 }
                 catch (TaskCanceledException taskException)
                 {
-                    //if (!taskException.CancellationToken.IsCancellationRequested) logger.Error(_timeoutMsg);
+                    if (!taskException.CancellationToken.IsCancellationRequested) throw new Exception(_timeoutMsg);
                 }
                 catch (HttpRequestException)
-                { 
-                    //logger.Error(_httpRequestErrorMsg); 
+                {
+                    throw new Exception(_httpRequestErrorMsg);
                 }
                 catch (Exception e)
                 {
-                    //logger.Error(e.Message);
                     Console.WriteLine(e);
+                    throw new Exception(e.ToString());
                 }
                 cnt++;
             } while (cnt < _maxNumOfRequestAttempts);
             throw new Exception(_failedMsg);
         }
     }
-
-    
 }

@@ -1,11 +1,13 @@
-﻿using ExpertSenderBridge.Models;
-using ExpertSenderBridge.Services;
+﻿using ExpertSenderBridgeFramework;
+using ExpertSenderBridgeFramework.Models;
+using ExpertSenderBridgeFramework.Models.APIModels;
+using ExpertSenderBridgeFramework.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ExpertSenderBridge
+namespace ExpertSenderBridgeFramework
 {
     public class ExpertSender
     {
@@ -29,17 +31,18 @@ namespace ExpertSenderBridge
             foreach (var value in values)
             {
                 List<Column> columns = new List<Column>();
-                for (int i = 0; i< columnsName.Length; i++)
+                for (int i = 0; i < columnsName.Length; i++)
                 {
-                    columns.Add(new Column {Name = columnsName[i], Value = value[i].ToString() });
+                    columns.Add(new Column { Name = columnsName[i], Value = value[i].ToString() });
                 }
+                rows.Add(new Row { Columns= columns.ToArray() });
             }
             var request = new ApiRequest { ApiKey = apiKey, TableName = table, Data = rows.ToArray() };
             var body = eSXmlSerializer.Serialize(request);
-            await APISenderService.SendPostAPIAsync(serverAdress+ "DataTablesAddMultipleRows/", body);
+            await APISenderService.SendPostAPIAsync(serverAdress + "DataTablesAddMultipleRows/", body);
         }
 
-        public static List<IDictionary<string, object>> GetRows(string table, int? top, IEnumerable<string> columns, IEnumerable<Filter> filters)
+        public static List<IDictionary<string, object>> GetRows(string table, int? top, IEnumerable<string> columns, IEnumerable<Filter.Filter> filters)
         {
             var rows = new List<IDictionary<string, object>>();
 
@@ -48,7 +51,7 @@ namespace ExpertSenderBridge
 
         public static void DeleteRows(string table, Column[] PrimaryKeyColumns)
         {
-            new Filter("test", WhereOperator.EQ, 123);
+            new Filter.Filter("test", WhereOperator.EQ, 123);
         }
     }
 }

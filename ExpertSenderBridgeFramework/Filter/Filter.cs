@@ -1,8 +1,11 @@
-﻿using System;
+﻿using ExpertSenderBridge.DataModel.Enums.DataTables;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace ExpertSenderBridge.Models
+namespace ExpertSenderBridgeFramework.Filter
 {
     public class Filter
     {
@@ -12,7 +15,7 @@ namespace ExpertSenderBridge.Models
         public Filter(string name, WhereOperator modif, object value)
         {
             Name = name;
-            modifier = (int) modif;
+            modifier = (int)modif;
             Value = value;
         }
     }
